@@ -44,6 +44,12 @@ import {ImageSlideshow} from './compositions/MediaExamples/ImageSlideshow';
 import {VideoOverlay} from './compositions/MediaExamples/VideoOverlay';
 import {MediaFromURL} from './compositions/MediaExamples/MediaFromURL';
 
+// 🎬 专业级宣传片效果
+import {CinematicCamera} from './compositions/ProLevel/CinematicCamera';
+import {BrandShowcase} from './compositions/ProLevel/BrandShowcase';
+import {FastEditing} from './compositions/ProLevel/FastEditing';
+import {ProductShowcase} from './compositions/ProLevel/ProductShowcase';
+
 export const RemotionRoot = () => {
   return (
     <>
@@ -96,6 +102,12 @@ export const RemotionRoot = () => {
       <Composition id="ImageSlideshow" component={ImageSlideshow} durationInFrames={270} fps={30} width={1920} height={1080} />
       <Composition id="VideoOverlay" component={VideoOverlay} durationInFrames={300} fps={30} width={1920} height={1080} />
       <Composition id="MediaFromURL" component={MediaFromURL} durationInFrames={300} fps={30} width={1920} height={1080} />
+
+      {/* 🎬 专业级宣传片效果 */}
+      <Composition id="CinematicCamera" component={CinematicCamera} durationInFrames={300} fps={30} width={1920} height={1080} />
+      <Composition id="BrandShowcase" component={BrandShowcase} durationInFrames={210} fps={30} width={1920} height={1080} />
+      <Composition id="FastEditing" component={FastEditing} durationInFrames={240} fps={30} width={1920} height={1080} />
+      <Composition id="ProductShowcase" component={ProductShowcase} durationInFrames={360} fps={30} width={1920} height={1080} />
     </>
   );
 };

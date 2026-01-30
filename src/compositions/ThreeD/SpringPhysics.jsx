@@ -1,4 +1,4 @@
-import {AbsoluteFill, useCurrentFrame, spring} from 'remotion';
+import {AbsoluteFill, useCurrentFrame, interpolate, spring} from 'remotion';
 
 /**
  * 【中文提示词】

@@ -1,17 +1,17 @@
-import {AbsoluteFill, useCurrentFrame, interpolate, Sequence, Img, staticFile} from 'remotion';
+import {AbsoluteFill, useCurrentFrame, interpolate, Sequence} from 'remotion';
 
 /**
  * 【中文提示词】
- * 创建一个图片轮播效果，要求：
- * - 多张图片依次显示
+ * 创建一个图片轮播效果演示，要求：
+ * - 多张图片依次显示（使用占位符）
  * - 淡入淡出过渡
  * - 缩放动画（Ken Burns 效果）
  * - 图片标题说明
- * - 使用 public 目录中的图片
+ * - 展示如何使用图片素材
  *
  * 【效果说明】
  * 演示如何在 Remotion 中使用图片素材。
- * 素材应放在 public/ 目录下，使用 staticFile() 或相对路径引用。
+ * 使用彩色占位符代替实际图片，添加素材后替换为 Img 组件。
  */
 
 export const ImageSlideshow = () => {
@@ -20,37 +20,50 @@ export const ImageSlideshow = () => {
       {/* 第一张图片：0-90帧 */}
       <Sequence from={0} durationInFrames={90}>
         <ImageSlide
-          image="/images/photo1.jpg"
-          title="美丽的风景"
-          subtitle="第一张图片展示"
+          color1="#ff6b6b"
+          color2="#ee5a6f"
+          title="美丽风景"
+          subtitle="使用 Img 组件展示图片"
           zoomDirection="in"
+          tip="/images/photo1.jpg"
         />
       </Sequence>
 
       {/* 第二张图片：90-180帧 */}
       <Sequence from={90} durationInFrames={90}>
         <ImageSlide
-          image="/images/photo2.jpg"
+          color1="#4ecdc4"
+          color2="#44a08d"
           title="城市夜景"
-          subtitle="第二张图片展示"
+          subtitle="支持 JPG, PNG, WebP 等格式"
           zoomDirection="out"
+          tip="/images/photo2.jpg"
         />
       </Sequence>
 
       {/* 第三张图片：180-270帧 */}
       <Sequence from={180} durationInFrames={90}>
         <ImageSlide
-          image="/images/photo3.jpg"
+          color1="#feca57"
+          color2="#ff9f43"
           title="人物肖像"
-          subtitle="第三张图片展示"
+          subtitle="objectFit 控制填充方式"
           zoomDirection="in"
+          tip="/images/photo3.jpg"
         />
       </Sequence>
     </AbsoluteFill>
   );
 };
 
-const ImageSlide = ({image, title, subtitle, zoomDirection}) => {
+const ImageSlide = ({
+  color1,
+  color2,
+  title,
+  subtitle,
+  zoomDirection,
+  tip,
+}) => {
   const frame = useCurrentFrame();
 
   // 淡入淡出
@@ -77,7 +90,7 @@ const ImageSlide = ({image, title, subtitle, zoomDirection}) => {
 
   return (
     <AbsoluteFill style={{opacity}}>
-      {/* 图片层 */}
+      {/* 图片层占位符 */}
       <div
         style={{
           width: '100%',
@@ -85,27 +98,86 @@ const ImageSlide = ({image, title, subtitle, zoomDirection}) => {
           overflow: 'hidden',
         }}
       >
-        {/* 方式1: 使用 Img 组件（推荐） */}
-        <Img
-          src={staticFile(image)}
+        {/* 渐变占位符（模拟图片） */}
+        <div
           style={{
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            background: `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`,
             transform: `scale(${scale}) translate(${x}px, ${y}px)`,
           }}
-        />
+        >
+          {/* 占位提示 */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontSize: 120,
+              color: 'rgba(255,255,255,0.3)',
+            }}
+          >
+            🖼️
+          </div>
+        </div>
 
-        {/* 方式2: 使用普通 img 标签 */}
-        {/* <img
-          src={staticFile(image)}
+        {/* 使用说明 */}
+        <div
           style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transform: `scale(${scale}) translate(${x}px, ${y}px)`,
+            position: 'absolute',
+            top: 80,
+            left: 100,
+            fontSize: 32,
+            color: '#ffffff',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            padding: '15px 25px',
+            borderRadius: 10,
           }}
-        /> */}
+        >
+          💡 图片占位符
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            top: 140,
+            left: 100,
+            fontSize: 20,
+            color: '#cccccc',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            padding: '10px 20px',
+            borderRadius: 8,
+            fontFamily: 'monospace',
+          }}
+        >
+          实际使用：
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            top: 190,
+            left: 100,
+            fontSize: 18,
+            color: '#3498db',
+            backgroundColor: 'rgba(0,0,0,0.7)',
+            padding: '15px 20px',
+            borderRadius: 8,
+            fontFamily: 'monospace',
+            whiteSpace: 'pre',
+          }}
+        >
+          {`import {Img, staticFile} from 'remotion';
+
+<Img
+  src={staticFile('${tip}')}
+  style={{
+    width: '100%',
+    objectFit: 'cover',
+    }}
+/>`}
+        </div>
       </div>
 
       {/* 黑色遮罩，让文字更清晰 */}
@@ -150,37 +222,6 @@ const ImageSlide = ({image, title, subtitle, zoomDirection}) => {
         >
           {subtitle}
         </div>
-      </div>
-
-      {/* 提示信息 */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 80,
-          left: 100,
-          fontSize: 32,
-          color: '#ffffff',
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          padding: '15px 25px',
-          borderRadius: 10,
-        }}
-      >
-        💡 图片素材使用示例
-      </div>
-
-      <div
-        style={{
-          position: 'absolute',
-          top: 140,
-          left: 100,
-          fontSize: 24,
-          color: '#cccccc',
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          padding: '10px 20px',
-          borderRadius: 8,
-        }}
-      >
-        素材路径: public{image}
       </div>
     </AbsoluteFill>
   );

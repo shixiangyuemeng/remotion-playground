@@ -1,27 +1,23 @@
-import {AbsoluteFill, useCurrentFrame, interpolate, Video, OffthreadVideo, staticFile, Audio} from 'remotion';
+import {AbsoluteFill, useCurrentFrame, interpolate} from 'remotion';
 
 /**
  * 【中文提示词】
- * 创建一个视频叠加效果，要求：
- * - 主视频背景
- * - 叠加第二个视频（画中画）
- * - 背景音乐
- * - 文字标题叠加
- * - 视频边框和阴影效果
+ * 创建一个视频叠加效果演示，要求：
+ * - 主视频背景（使用占位符）
+ * - 叠加内容（画中画）
+ * - 标题文字叠加
+ * - 显示素材使用说明
  *
  * 【效果说明】
  * 演示如何在 Remotion 中使用视频素材。
- * Video 组件用于实时预览，OffthreadVideo 用于离线渲染（性能更好）。
+ * 实际使用时将占位符替换为真实的 Video 组件。
  */
 
 export const VideoOverlay = () => {
   return (
     <AbsoluteFill>
-      {/* 背景视频 */}
-      <BackgroundVideo />
-
-      {/* 背景音乐 */}
-      <Audio src="/music/background.mp3" />
+      {/* 背景视频占位符 */}
+      <BackgroundPlaceholder />
 
       {/* 叠加视频（画中画） */}
       <PictureInPicture />
@@ -32,37 +28,77 @@ export const VideoOverlay = () => {
   );
 };
 
-// 背景视频组件
-const BackgroundVideo = () => {
+// 背景视频占位符组件
+const BackgroundPlaceholder = () => {
+  const frame = useCurrentFrame();
+
+  // 创建动态渐变背景模拟视频
+  const hue1 = interpolate(frame % 180, [0, 180], [200, 260]);
+  const hue2 = interpolate(frame % 180, [0, 180], [260, 200]);
+
   return (
     <div
       style={{
         width: '100%',
         height: '100%',
-        backgroundColor: '#000000',
+        background: `linear-gradient(45deg,
+          hsl(${hue1}, 70%, 50%) 0%,
+          hsl(${hue2}, 70%, 50%) 100%)`,
+        position: 'relative',
       }}
     >
-      {/* 方式1: Video 组件（适合实时预览） */}
-      <Video
-        src={staticFile('/videos/background.mp4')}
+      {/* 模拟视频效果 */}
+      <div
         style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          opacity: 0.8,
+          position: 'absolute',
+          top: 100,
+          left: 100,
+          fontSize: 32,
+          color: '#ffffff',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          padding: '20px 30px',
+          borderRadius: 10,
         }}
-      />
+      >
+        📹 背景视频占位符
+      </div>
 
-      {/* 方式2: OffthreadVideo（适合离线渲染，性能更好） */}
-      {/* <OffthreadVideo
-        src={staticFile('/videos/background.mp4')}
+      <div
         style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          opacity: 0.8,
+          position: 'absolute',
+          top: 160,
+          left: 100,
+          fontSize: 24,
+          color: '#ffffff',
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          padding: '15px 25px',
+          borderRadius: 8,
         }}
-      /> */}
+      >
+        实际使用时替换为：
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          top: 220,
+          left: 100,
+          fontSize: 20,
+          color: '#3498db',
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          padding: '15px 25px',
+          borderRadius: 8,
+          fontFamily: 'monospace',
+          whiteSpace: 'pre',
+        }}
+      >
+        {`import {Video, staticFile} from 'remotion';
+
+<Video
+  src={staticFile('/videos/background.mp4')}
+  style={{width: '100%', objectFit: 'cover'}}
+/>`}
+      </div>
 
       {/* 黑色半透明遮罩 */}
       <div
@@ -70,7 +106,7 @@ const BackgroundVideo = () => {
           position: 'absolute',
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
         }}
       />
     </div>
@@ -115,17 +151,49 @@ const PictureInPicture = () => {
           overflow: 'hidden',
           boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)',
           border: '4px solid #ffffff',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         }}
       >
-        {/* 小视频 */}
-        <Video
-          src={staticFile('/videos/pip.mp4')}
+        {/* 占位内容 */}
+        <div
           style={{
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-        />
+        >
+          <div
+            style={{
+              fontSize: 64,
+              marginBottom: 15,
+            }}
+          >
+            ▶️
+          </div>
+          <div
+            style={{
+              fontSize: 28,
+              color: '#ffffff',
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}
+          >
+            画中画视频
+          </div>
+          <div
+            style={{
+              fontSize: 18,
+              color: '#ffffff',
+              opacity: 0.8,
+              marginTop: 10,
+            }}
+          >
+            放置你的视频文件
+          </div>
+        </div>
 
         {/* 播放指示器 */}
         <div
@@ -216,7 +284,7 @@ const TitleOverlay = () => {
             display: 'inline-block',
           }}
         >
-          演示如何使用 Video 和 OffthreadVideo 组件
+          演示 Video 和 OffthreadVideo 组件的使用
         </div>
       </div>
 
@@ -254,7 +322,7 @@ const TechTip = () => {
           marginBottom: 15,
         }}
       >
-        💡 素材使用技巧
+        💡 视频素材使用
       </div>
       <div
         style={{
@@ -263,11 +331,47 @@ const TechTip = () => {
           lineHeight: 1.6,
         }}
       >
-        <div>• 图片/视频放在 public/ 目录</div>
-        <div>• 使用 staticFile() 函数引用</div>
-        <div>• Video: 实时预览快</div>
-        <div>• OffthreadVideo: 离线渲染性能更好</div>
-        <div>• Audio: 背景音乐和音效</div>
+        <div style={{marginBottom: 8}}>
+          <strong>1. Video</strong> - 适合实时预览
+        </div>
+        <div style={{marginBottom: 8}}>
+          <strong>2. OffthreadVideo</strong> - 适合离线渲染（性能更好）
+        </div>
+        <div style={{marginBottom: 8}}>
+          <strong>3. 素材位置</strong> - 放在 public/videos/ 目录
+        </div>
+        <div style={{marginBottom: 8}}>
+          <strong>4. 支持格式</strong> - MP4（推荐）, WebM, MOV
+        </div>
+      </div>
+
+      <div
+        style={{
+          marginTop: 15,
+          padding: '15px',
+          backgroundColor: 'rgba(0,0,0,0.3)',
+          borderRadius: 8,
+          fontSize: 18,
+          color: '#ffffff',
+        }}
+      >
+        <strong>添加视频后，将占位符代码替换为：</strong>
+        <code
+          style={{
+            display: 'block',
+            marginTop: 10,
+            backgroundColor: '#1a1a2e',
+            padding: '10px',
+            borderRadius: 5,
+            fontFamily: 'monospace',
+            fontSize: 16,
+          }}
+        >
+          {`<Video
+  src={staticFile('/videos/background.mp4')}
+  style={{width: '100%', objectFit: 'cover'}}
+/>`}
+        </code>
       </div>
     </div>
   );

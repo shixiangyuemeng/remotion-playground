@@ -39,6 +39,11 @@ import {CardDeck} from './compositions/CardEffects/CardDeck';
 import {TypingDelete} from './compositions/TypingEffects/TypingDelete';
 import {AnalogClock} from './compositions/ClockAnimations/AnalogClock';
 
+// 📺 素材使用示例
+import {ImageSlideshow} from './compositions/MediaExamples/ImageSlideshow';
+import {VideoOverlay} from './compositions/MediaExamples/VideoOverlay';
+import {MediaFromURL} from './compositions/MediaExamples/MediaFromURL';
+
 export const RemotionRoot = () => {
   return (
     <>
@@ -86,6 +91,11 @@ export const RemotionRoot = () => {
       <Composition id="CardDeck" component={CardDeck} durationInFrames={240} fps={30} width={1920} height={1080} />
       <Composition id="TypingDelete" component={TypingDelete} durationInFrames={600} fps={30} width={1920} height={1080} />
       <Composition id="AnalogClock" component={AnalogClock} durationInFrames={900} fps={30} width={1920} height={1080} />
+
+      {/* 📺 素材使用示例 */}
+      <Composition id="ImageSlideshow" component={ImageSlideshow} durationInFrames={270} fps={30} width={1920} height={1080} />
+      <Composition id="VideoOverlay" component={VideoOverlay} durationInFrames={300} fps={30} width={1920} height={1080} />
+      <Composition id="MediaFromURL" component={MediaFromURL} durationInFrames={300} fps={30} width={1920} height={1080} />
     </>
   );
 };

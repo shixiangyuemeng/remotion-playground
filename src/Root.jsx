@@ -1,37 +1,37 @@
 import {Composition} from 'remotion';
-import {Welcome} from './compositions/Welcome.jsx';
+import {Welcome} from './compositions/Welcome';
 
 // 导入所有文字动画示例
-import {FadeInFadeOut} from './compositions/TextAnimations/FadeInFadeOut.jsx';
-import {Typewriter} from './compositions/TextAnimations/Typewriter.jsx';
-import {WordByWord} from './compositions/TextAnimations/WordByWord.jsx';
-import {ColorCycle} from './compositions/TextAnimations/ColorCycle.jsx';
+import {FadeInFadeOut} from './compositions/TextAnimations/FadeInFadeOut';
+import {Typewriter} from './compositions/TextAnimations/Typewriter';
+import {WordByWord} from './compositions/TextAnimations/WordByWord';
+import {ColorCycle} from './compositions/TextAnimations/ColorCycle';
 
 // 导入所有过渡动画示例
-import {SlideTransition} from './compositions/Transitions/SlideTransition.jsx';
-import {ScaleTransition} from './compositions/Transitions/ScaleTransition.jsx';
-import {RotateTransition} from './compositions/Transitions/RotateTransition.jsx';
-import {Dissolve} from './compositions/Transitions/Dissolve.jsx';
+import {SlideTransition} from './compositions/Transitions/SlideTransition';
+import {ScaleTransition} from './compositions/Transitions/ScaleTransition';
+import {RotateTransition} from './compositions/Transitions/RotateTransition';
+import {Dissolve} from './compositions/Transitions/Dissolve';
 
 // 导入所有数据可视化示例
-import {ProgressBar} from './compositions/DataViz/ProgressBar.jsx';
-import {BarChart} from './compositions/DataViz/BarChart.jsx';
-import {CircularProgress} from './compositions/DataViz/CircularProgress.jsx';
-import {CounterAnimation} from './compositions/DataViz/CounterAnimation.jsx';
-import {LineChart} from './compositions/DataViz/LineChart.jsx';
+import {ProgressBar} from './compositions/DataViz/ProgressBar';
+import {BarChart} from './compositions/DataViz/BarChart';
+import {CircularProgress} from './compositions/DataViz/CircularProgress';
+import {CounterAnimation} from './compositions/DataViz/CounterAnimation';
+import {LineChart} from './compositions/DataViz/LineChart';
 
 // 导入所有 3D 和交互示例
-import {RotatingCard} from './compositions/ThreeD/RotatingCard.jsx';
-import {ThreeDFlip} from './compositions/ThreeD/ThreeDFlip.jsx';
-import {MouseFollow} from './compositions/ThreeD/MouseFollow.jsx';
-import {Parallax} from './compositions/ThreeD/Parallax.jsx';
-import {SpringPhysics} from './compositions/ThreeD/SpringPhysics.jsx';
+import {RotatingCard} from './compositions/ThreeD/RotatingCard';
+import {ThreeDFlip} from './compositions/ThreeD/ThreeDFlip';
+import {MouseFollow} from './compositions/ThreeD/MouseFollow';
+import {Parallax} from './compositions/ThreeD/Parallax';
+import {SpringPhysics} from './compositions/ThreeD/SpringPhysics';
 
 // 导入所有音频响应示例
-import {AudioWaveform} from './compositions/Audio/AudioWaveform.jsx';
-import {AudioSpectrum} from './compositions/Audio/AudioSpectrum.jsx';
-import {BeatDetection} from './compositions/Audio/BeatDetection.jsx';
-import {VolumeControl} from './compositions/Audio/VolumeControl.jsx';
+import {AudioWaveform} from './compositions/Audio/AudioWaveform';
+import {AudioSpectrum} from './compositions/Audio/AudioSpectrum';
+import {BeatDetection} from './compositions/Audio/BeatDetection';
+import {VolumeControl} from './compositions/Audio/VolumeControl';
 
 export const RemotionRoot = () => {
   return (
